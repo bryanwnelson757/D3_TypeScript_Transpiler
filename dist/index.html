@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Custom Visual Test Page</title>
+    <script type="text/javascript" src='/scripts/d3/dist/d3.min.js'></script>
+    <script type="text/javascript" src="bundle.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <script>
+        var height = width = 500;
+        var data = [{ "Run": "2", "Speed": 740 }, { "Run": "4", "Speed": 1070 }, { "Run": "5", "Speed": 930 }, { "Run": "8", "Speed": 980 }, { "Run": "12", "Speed": 980 }, { "Run": "14", "Speed": 650 }, { "Run": "15", "Speed": 760 }, { "Run": "16", "Speed": 810 }, { "Run": "17", "Speed": 1000 }, { "Run": "18", "Speed": 1000 }, { "Run": "19", "Speed": 960 }, { "Run": "1", "Speed": 850 }, { "Run": "3", "Speed": 900 }, { "Run": "6", "Speed": 850 }, { "Run": "7", "Speed": 950 }, { "Run": "9", "Speed": 980 }, { "Run": "10", "Speed": 880 }, { "Run": "11", "Speed": 1000 }, { "Run": "13", "Speed": 930 }, { "Run": "20", "Speed": 960 }];
+
+        var chart = new viz.BarChart(data, width, height);
+
+        d3.selectAll('#svg-custom-viz').remove();
+
+        var svg = d3.select(window.document.body)
+            .append("svg")
+            .attr("id", "svg-custom-viz")
+            .attr("height", 500)
+            .attr("width", 500)
+            .call(chart.generate.bind(chart));
+
+        var click = function(data) {
+            d3.selectAll('.bar')
+                .style('opacity', function(d) {
+                    return d.Run === data.Run ? 1 : 0.4;  
+                });
+        };    
+
+        d3.selectAll('.bar')
+            .on('click', click);
+    </script>
+</body>
+
+</html>
